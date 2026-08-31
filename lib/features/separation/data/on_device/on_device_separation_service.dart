@@ -29,8 +29,21 @@ class OnDeviceSeparationService implements SeparationService {
 
   final OnDeviceModelRepository _modelRepository;
 
+  // ONNX Runtime compiles the model's NNAPI-eligible subgraph partitions the
+  // first time a session actually runs — a real, non-trivial cost (dozens+
+  // of partitions on this model). Caching the runner for the service's
+  // lifetime means only the *first* separation pays that cost; every one
+  // after it reuses the already-compiled session.
+  OnnxInferenceRunner? _runner;
+
   @override
   bool get isSupported => AppEnv.isOnDeviceSeparationSupported;
+
+  Future<OnnxInferenceRunner> _ensureRunner() async {
+    return _runner ??= await OnnxInferenceRunner.load(
+      await _modelRepository.modelPath(),
+    );
+  }
 
   @override
   Future<String> separate({
@@ -43,24 +56,22 @@ class OnDeviceSeparationService implements SeparationService {
 
     appLog.d('⚡ Starting on-device Demucs separation: $target');
     var preparedPath = inputAudioPath;
-    OnnxInferenceRunner? runner;
     try {
       preparedPath = await SeparationAudioIo.prepareWavInput(inputAudioPath);
       await _modelRepository.ensureModelDownloaded();
 
       final mix = await AudioTensorCodec.decodeWav(preparedPath);
-      runner = await OnnxInferenceRunner.load(
-        await _modelRepository.modelPath(),
-      );
+      final runner = await _ensureRunner();
 
       final stems = await DemucsChunker.process(
         mix: mix,
         runChunk: runner.runChunk,
       );
 
+      final vocals = stems[OnDeviceModelSpec.vocalsStemIndex];
       final targetSamples = target == SeparationTarget.vocals
-          ? stems[OnDeviceModelSpec.vocalsStemIndex]
-          : _mixNonVocalStems(stems);
+          ? vocals
+          : _subtractVocals(mix: mix, vocals: vocals);
 
       final directory = await getTemporaryDirectory();
       final wavOutput = '${directory.path}/soutnaqi_${_uuid.v4()}.wav';
@@ -78,7 +89,6 @@ class OnDeviceSeparationService implements SeparationService {
       appLog.e('❌ On-device separation failed', error: error);
       throw AppException(messageKey: 'separationFailed', cause: error);
     } finally {
-      await runner?.dispose();
       if (preparedPath != inputAudioPath) {
         try {
           await File(preparedPath).delete();
@@ -87,19 +97,20 @@ class OnDeviceSeparationService implements SeparationService {
     }
   }
 
-  /// The model predicts 4 stems ([OnDeviceModelSpec.sources]); the
-  /// instrumental target is the sum of every stem except vocals.
-  StereoSamples _mixNonVocalStems(List<StereoSamples> stems) {
-    final length = stems[OnDeviceModelSpec.vocalsStemIndex].length;
+  /// The model's non-vocals stems (drums/bass/other) are explicitly
+  /// documented as "weakly-predicted by-products" — only the vocals row is
+  /// well-trained. Deriving instrumental as mix minus the (reliable) vocals
+  /// prediction avoids depending on those weak stems entirely.
+  StereoSamples _subtractVocals({
+    required StereoSamples mix,
+    required StereoSamples vocals,
+  }) {
+    final length = mix.length;
     final left = Float32List(length);
     final right = Float32List(length);
-    for (var s = 0; s < stems.length; s++) {
-      if (s == OnDeviceModelSpec.vocalsStemIndex) continue;
-      final stem = stems[s];
-      for (var i = 0; i < length; i++) {
-        left[i] += stem.left[i];
-        right[i] += stem.right[i];
-      }
+    for (var i = 0; i < length; i++) {
+      left[i] = mix.left[i] - vocals.left[i];
+      right[i] = mix.right[i] - vocals.right[i];
     }
     return StereoSamples(left: left, right: right);
   }
