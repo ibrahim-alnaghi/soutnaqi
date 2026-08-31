@@ -354,6 +354,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get separationTimeout => 'Separation timed out. Try a shorter file.';
 
   @override
+  String get separationOnDeviceHint =>
+      'On-device separation (free, fully offline) — first use downloads a one-time model. May take several minutes.';
+
+  @override
+  String get separationModelSection => 'On-device model';
+
+  @override
+  String get onDeviceModelDownloadFailed =>
+      'Couldn\'t download the on-device separation model. Check your connection and try again.';
+
+  @override
+  String get onDeviceModelCorrupted =>
+      'The downloaded separation model appears corrupted. Try again.';
+
+  @override
+  String get onDeviceInsufficientStorage =>
+      'Not enough free storage to download the separation model.';
+
+  @override
   String get historyShareLoading => 'Preparing share…';
 
   @override

@@ -347,6 +347,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get separationTimeout => 'انتهت مهلة الفصل. جرّب ملفاً أقصر.';
 
   @override
+  String get separationOnDeviceHint =>
+      'الفصل على الجهاز (مجاني، بدون إنترنت بالكامل) — يتم تنزيل نموذج مرة واحدة عند أول استخدام. قد يستغرق عدة دقائق.';
+
+  @override
+  String get separationModelSection => 'نموذج الفصل على الجهاز';
+
+  @override
+  String get onDeviceModelDownloadFailed =>
+      'تعذّر تنزيل نموذج الفصل على الجهاز. تحقق من اتصالك وحاول مجدداً.';
+
+  @override
+  String get onDeviceModelCorrupted =>
+      'يبدو أن النموذج الذي تم تنزيله تالف. حاول مجدداً.';
+
+  @override
+  String get onDeviceInsufficientStorage =>
+      'لا توجد مساحة تخزين كافية لتنزيل نموذج الفصل.';
+
+  @override
   String get historyShareLoading => 'جاري تجهيز المشاركة…';
 
   @override

@@ -746,6 +746,36 @@ abstract class AppLocalizations {
   /// **'Separation timed out. Try a shorter file.'**
   String get separationTimeout;
 
+  /// No description provided for @separationOnDeviceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'On-device separation (free, fully offline) — first use downloads a one-time model. May take several minutes.'**
+  String get separationOnDeviceHint;
+
+  /// No description provided for @separationModelSection.
+  ///
+  /// In en, this message translates to:
+  /// **'On-device model'**
+  String get separationModelSection;
+
+  /// No description provided for @onDeviceModelDownloadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t download the on-device separation model. Check your connection and try again.'**
+  String get onDeviceModelDownloadFailed;
+
+  /// No description provided for @onDeviceModelCorrupted.
+  ///
+  /// In en, this message translates to:
+  /// **'The downloaded separation model appears corrupted. Try again.'**
+  String get onDeviceModelCorrupted;
+
+  /// No description provided for @onDeviceInsufficientStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough free storage to download the separation model.'**
+  String get onDeviceInsufficientStorage;
+
   /// No description provided for @historyShareLoading.
   ///
   /// In en, this message translates to:
