@@ -72,6 +72,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appearanceSection => 'المظهر';
 
   @override
+  String get separationSection => 'فصل الصوت';
+
+  @override
   String get aboutSection => 'حول التطبيق';
 
   @override
@@ -364,6 +367,26 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get onDeviceInsufficientStorage =>
       'لا توجد مساحة تخزين كافية لتنزيل نموذج الفصل.';
+
+  @override
+  String get separationModelNotDownloaded =>
+      'غير مُنزَّل — سيُطلب عند أول استخدام لفصل الصوت.';
+
+  @override
+  String separationModelDownloading(int percent) {
+    return 'جاري التنزيل… $percent%';
+  }
+
+  @override
+  String separationModelReady(String size) {
+    return 'جاهز — $size على الجهاز';
+  }
+
+  @override
+  String get separationModelDownloadAction => 'تنزيل';
+
+  @override
+  String get separationModelDeleteAction => 'حذف';
 
   @override
   String get historyShareLoading => 'جاري تجهيز المشاركة…';

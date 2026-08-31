@@ -224,6 +224,12 @@ abstract class AppLocalizations {
   /// **'Appearance'**
   String get appearanceSection;
 
+  /// No description provided for @separationSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Separation'**
+  String get separationSection;
+
   /// No description provided for @aboutSection.
   ///
   /// In en, this message translates to:
@@ -775,6 +781,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not enough free storage to download the separation model.'**
   String get onDeviceInsufficientStorage;
+
+  /// No description provided for @separationModelNotDownloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Not downloaded — needed the first time you separate vocals.'**
+  String get separationModelNotDownloaded;
+
+  /// No description provided for @separationModelDownloading.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading… {percent}%'**
+  String separationModelDownloading(int percent);
+
+  /// No description provided for @separationModelReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready — {size} on device'**
+  String separationModelReady(String size);
+
+  /// No description provided for @separationModelDownloadAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get separationModelDownloadAction;
+
+  /// No description provided for @separationModelDeleteAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get separationModelDeleteAction;
 
   /// No description provided for @historyShareLoading.
   ///

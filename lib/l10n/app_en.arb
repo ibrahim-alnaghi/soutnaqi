@@ -24,6 +24,7 @@
   "workspaceTitle": "Workspace",
   "workspaceSubtitle": "Import media and start processing.",
   "appearanceSection": "Appearance",
+  "separationSection": "Separation",
   "aboutSection": "About",
   "appVersion": "Version {version}",
   "@appVersion": {
@@ -123,6 +124,25 @@
   "onDeviceModelDownloadFailed": "Couldn't download the on-device separation model. Check your connection and try again.",
   "onDeviceModelCorrupted": "The downloaded separation model appears corrupted. Try again.",
   "onDeviceInsufficientStorage": "Not enough free storage to download the separation model.",
+  "separationModelNotDownloaded": "Not downloaded — needed the first time you separate vocals.",
+  "separationModelDownloading": "Downloading… {percent}%",
+  "@separationModelDownloading": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "separationModelReady": "Ready — {size} on device",
+  "@separationModelReady": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "separationModelDownloadAction": "Download",
+  "separationModelDeleteAction": "Delete",
   "historyShareLoading": "Preparing share…",
   "historyShareSuccess": "Share sheet opened.",
   "homeOpenWorkspace": "Open workspace",

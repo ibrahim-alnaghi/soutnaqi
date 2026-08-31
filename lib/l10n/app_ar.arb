@@ -21,6 +21,7 @@
   "workspaceTitle": "مساحة العمل",
   "workspaceSubtitle": "استورد الوسائط وابدأ المعالجة.",
   "appearanceSection": "المظهر",
+  "separationSection": "فصل الصوت",
   "aboutSection": "حول التطبيق",
   "appVersion": "الإصدار {version}",
   "themeSection": "السمة",
@@ -113,6 +114,25 @@
   "onDeviceModelDownloadFailed": "تعذّر تنزيل نموذج الفصل على الجهاز. تحقق من اتصالك وحاول مجدداً.",
   "onDeviceModelCorrupted": "يبدو أن النموذج الذي تم تنزيله تالف. حاول مجدداً.",
   "onDeviceInsufficientStorage": "لا توجد مساحة تخزين كافية لتنزيل نموذج الفصل.",
+  "separationModelNotDownloaded": "غير مُنزَّل — سيُطلب عند أول استخدام لفصل الصوت.",
+  "separationModelDownloading": "جاري التنزيل… {percent}%",
+  "@separationModelDownloading": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "separationModelReady": "جاهز — {size} على الجهاز",
+  "@separationModelReady": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "separationModelDownloadAction": "تنزيل",
+  "separationModelDeleteAction": "حذف",
   "historyShareLoading": "جاري تجهيز المشاركة…",
   "historyShareSuccess": "تم فتح نافذة المشاركة.",
   "homeOpenWorkspace": "فتح مساحة العمل",
